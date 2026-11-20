@@ -69,4 +69,10 @@ describe("noteDraft after a save", () => {
     expect(draft.overLimit).toBe(false);
     expect(draft.canSave).toBe(true);
   });
+
+  it("shows the count the server would keep, so it agrees with the limit", () => {
+    const draft = noteDraft(`${"a".repeat(MAX_NOTE_LENGTH)}   `, null);
+    expect(draft.length).toBe(MAX_NOTE_LENGTH);
+    expect(draft.overLimit).toBe(false);
+  });
 });

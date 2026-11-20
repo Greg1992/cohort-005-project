@@ -17,7 +17,7 @@ export function describeDraft(
   const unsaved = kept !== savedBody;
 
   return {
-    length: draft.length,
+    length: kept.length,
     maxLength,
     overLimit,
     unsaved,
