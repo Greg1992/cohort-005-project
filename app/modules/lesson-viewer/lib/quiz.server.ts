@@ -12,6 +12,15 @@ export function getQuizByLessonId(lessonId: number) {
   return db.select().from(quizzes).where(eq(quizzes.lessonId, lessonId)).get();
 }
 
+/**
+ * The quiz with this id, only if it belongs to this lesson, so a quiz
+ * elsewhere can't be reached by posting its id to another lesson's route.
+ */
+export function getLessonQuiz(quizId: number, lessonId: number) {
+  const quiz = db.select().from(quizzes).where(eq(quizzes.id, quizId)).get();
+  return quiz && quiz.lessonId === lessonId ? quiz : undefined;
+}
+
 export function getQuizWithQuestions(quizId: number) {
   const quiz = db.select().from(quizzes).where(eq(quizzes.id, quizId)).get();
   if (!quiz) return null;
